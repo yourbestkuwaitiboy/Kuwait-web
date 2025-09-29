@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuwait Forces</title>
+  <style>
+    body {
+      font-family: Inter, system-ui, Segoe UI, Arial;
+      margin: 0;
+      background: #f0f2f5;
+      color: #0b1220;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0b6b3f, #04a96f);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    header h1 { font-size: 2.5rem; margin-bottom: 5px; }
+    header p { font-size: 1.2rem; }
+
+    .section {
+      padding: 30px 20px;
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+    }
+    .section h2 {
+      color: #0b6b3f;
+      border-bottom: 2px solid #04a96f;
+      display: inline-block;
+      padding-bottom: 6px;
+      margin-bottom: 15px;
+    }
+    .section ul { padding-left: 20px; }
+    .section ul li { margin-bottom: 10px; }
+
+    .images {
+      display: grid;
+      gap: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      margin-top: 15px;
+    }
+    .images img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .images img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    #translate-btn {
+      padding: 10px 18px;
+      border:none;
+      border-radius:8px;
+      background:#0b6b3f;
+      color:white;
+      cursor:pointer;
+      display:block;
+      margin: 15px auto;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    #translate-btn:hover {
+      background:#04a96f;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: #0b1220;
+      color: #d6dbe6;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      margin-top: 40px;
+    }
+
+    /* Intro overlay */
+    @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-10px); } 100% { transform: translateX(0); } }
+    #intro-overlay {
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(2,6,23,0.7); z-index: 9999;
+    }
+    #intro-box {
+      width: min(760px, 92%);
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(2,6,23,.6);
+      text-align: center;
+    }
+    #intro-box button { padding: 10px 18px; border-radius: 8px; border: 0; font-weight: 700; cursor: pointer; transition: transform 0.2s ease; }
+    #intro-box button:hover { transform: scale(1.05); }
+    #intro-yes { background: #0b6b3f; color: #fff; }
+    #intro-no { background: #d33; color: #fff; }
+    #kick-message {
+      display: none; text-align: center; padding: 25px;
+      background: #0b1220; color: #fff; font-size: 18px; border-radius: 12px; margin: 20px auto; max-width: 600px;
+    }
+    #kick-message .emoji { font-size: 70px; margin-bottom: 15px; display: inline-block; }
+  </style>
+</head>
+<body>
+  <div id="intro-overlay">
+    <div id="intro-box">
+      <h2><span data-ar="تم إنشاء هذا الموقع بواسطة طفل عمره 14 عامًا — أليس هذا رائعًا؟">This website was made by a 14‑year‑old — isn’t that cool?</span></h2>
+      <p style="margin:8px 0 18px;color:#444"><span data-ar="الرجاء اختيار خيار للمتابعة.">Please choose an option to continue.</span></p>
+      <div style="display:flex;gap:12px;justify-content:center">
+        <button id="intro-yes"><span data-ar="نعم — رائع!">Yes — cool!</span></button>
+        <button id="intro-no"><span data-ar="لا — اخرجني">No — kick me</span></button>
+      </div>
+      <p style="font-size:12px;color:#777;margin-top:12px"><span data-ar="إذا اخترت لا، فسيتم إزالتك من الصفحة.">(If you pick No you'll be removed from the page.)</span></p>
+    </div>
+  </div>
+
+  <header>
+    <h1><span data-ar="القوات الكويتية">Kuwait Forces</span></h1>
+    <p><span data-ar="استكشاف القوة، التاريخ، والفخر">Exploring strength, history, and pride</span></p>
+  </header>
+
+  <!-- Translate Button -->
+  <button id="translate-btn">Translate to Arabic</button>
+
+  <!-- History Section -->
+  <section class="section">
+    <h2><span data-ar="التاريخ — الجدول الزمني المفصل">History — Detailed Timeline</span></h2>
+    <p><span data-ar="لكويت لها تاريخ غني يمتد لقرون كمركز تجاري على الخليج العربي. الدولة الحديثة نالت استقلالها عن بريطانيا في عام 1961. بعد ذلك بوقت قصير، تم إنشاء القوات المسلحة الكويتية لحماية سيادة الدولة.">
+      Kuwait has a rich history that dates back centuries as a trading hub on the Arabian Gulf. The modern state gained independence from Britain in 1961. Soon after, the Kuwaiti Armed Forces were established to protect the nation’s sovereignty.
+    </span></p>
+    <p><span data-ar="خلال أواخر القرن العشرين، واجهت الكويت صراعات إقليمية كبرى، أهمها غزو العراق في 1990، والذي أدى إلى حرب الخليج. بدعم من الحلفاء الدوليين، تم تحرير الكويت في 1991. منذ ذلك الحين، ركزت الكويت على تعزيز قواتها العسكرية والتعاون الأمني الإقليمي.">
+      During the late 20th century, Kuwait faced major regional conflicts. The most significant was the Iraqi invasion in 1990, which led to the Gulf War. With the help of international allies, Kuwait was liberated in 1991. Since then, Kuwait has focused on strengthening its military and regional security cooperation.
+    </span></p>
+  </section>
+
+  <!-- Major Conflicts -->
+  <section class="section">
+    <h2><span data-ar="الصراعات الكبرى">Major Conflicts</span></h2>
+    <ul>
+      <li><strong><span data-ar="دفاع الاستقلال 1961">1961 Independence Defense:</span></strong> <span data-ar="استعدت الدولة الحديثة لحماية نفسها من التهديدات الإقليمية المحتملة.">The newly independent nation prepared to defend against possible regional threats.</span></li>
+      <li><strong><span data-ar="حرب إيران والعراق (1980-1988)">Iran-Iraq War (1980-1988):</span></strong> <span data-ar="لعبت الكويت دورًا استراتيجيًا وكانت متأثرة بالتوترات الإقليمية، بما في ذلك الهجمات على ناقلات النفط.">Kuwait played a strategic support role and was affected by regional tensions, including attacks on its oil tankers.</span></li>
+      <li><strong><span data-ar="غزو العراق والتحرير (1990-1991)">Iraqi Invasion & Liberation (1990-1991):</span></strong> <span data-ar="تم غزو الكويت بواسطة العراق. قاد الحلفاء بقيادة الولايات المتحدة تحرير الدولة في عملية عاصفة الصحراء.">Kuwait was invaded by Iraq. The coalition forces led by the United States liberated the country in Operation Desert Storm.</span></li>
+      <li><strong><span data-ar="حقبة ما بعد حرب الخليج">Post-Gulf War Era:</span></strong> <span data-ar="حافظت الكويت على قوات دفاع قوية وساهمت في عمليات حفظ السلام في المنطقة، بما في ذلك مكافحة الإرهاب.">Kuwait has maintained strong defense forces and contributed to peacekeeping operations in the region, including supporting anti-terrorism initiatives.</span></li>
+      <li><strong><span data-ar="التدريبات العسكرية الحديثة">Modern Military Exercises:</span></strong> <span data-ar="تشارك الكويت بانتظام في تدريبات عسكرية مشتركة مع الحلفاء لضمان الجاهزية ضد التهديدات الإقليمية.">Kuwait regularly participates in joint military exercises with allies to ensure readiness against regional threats.</span></li>
+    </ul>
+  </section>
+
+  <!-- War Statistics -->
+  <section class="section">
+    <h2><span data-ar="إحصائيات الحرب">War Statistics</span></h2>
+    <ul>
+      <li><strong><span data-ar="عدد الجنود العراقيين">Iraqi Soldiers:</span></strong> <span data-ar="حوالي 250,000">Approximately 250,000</span></li>
+      <li><strong><span data-ar="عدد الجنود الكويتيين">Kuwaiti Soldiers:</span></strong> <span data-ar="حوالي 18,000">Approximately 18,000</span></li>
+      <li><strong><span data-ar="خسائر الحرب">War Outcome:</span></strong> <span data-ar="تحرير الكويت ودحر القوات العراقية">Kuwait liberated and Iraqi forces defeated</span></li>
+    </ul>
+  </section>
+
+  <!-- Modern Strength -->
+  <section class="section">
+    <h2><span data-ar="القوة الحديثة">Modern Strength</span></h2>
+    <p><span data-ar="اليوم، القوات المسلحة الكويتية مجهزة بتكنولوجيا حديثة بما في ذلك الدبابات والطائرات والسفن البحرية. يلعب الجيش والقوات الجوية والبحرية دورًا أساسيًا في الدفاع عن البلاد ودعم مهام حفظ السلام الدولية.">
+      Today, Kuwait’s armed forces are equipped with advanced technology including modern tanks, aircraft, and naval vessels. The army, air force, and navy all play a crucial role in defending the country and supporting international peacekeeping missions.
+    </span></p>
+    <div class="images">
+      <img src="tank.jpg" alt="Kuwaiti M1 Abrams Tank">
+      <img src="soldiers.jpg" alt="Kuwaiti Soldiers in Training">
+      <img src="plane.jpg" alt="Kuwait Air Force C-17A Globemaster III">
+      <img src="ship.jpg" alt="Kuwait Navy Ship">
+    </div>
+  </section>
+
+  <footer>
+    <span data-ar="تم الإنشاء بحب بواسطة طفل عمره 14 عامًا">Made with ❤️ by a 14‑year‑old</span>
+  </footer>
+
+  <div id="kick-message">
+    <div class="emoji">😡</div>
+    <p><span data-ar="تم طردك من هذه الصفحة">You were kicked from this page</span></p>
+    <p><span data-ar="أنا طفل عمره 14 عامًا، كن لطيفًا!">I am a 14 years old, be nice!</span></p>
+  </div>
+
+  <script>
+    // Intro overlay logic
+    document.addEventListener('DOMContentLoaded', function() {
+      var overlay = document.getElementById('intro-overlay');
+      var yesButton = document.getElementById('intro-yes');
+      var noButton = document.getElementById('intro-no');
+      var kickMessage = document.getElementById('kick-message');
+      var emoji = kickMessage.querySelector('.emoji');
+
+      yesButton.addEventListener('click', function() { overlay.style.display = 'none'; });
+      noButton.addEventListener('click', function() {
+        overlay.style.display = 'none';
+        kickMessage.style.display = 'block';
+        emoji.style.animation = 'shake 0.5s ease-in-out infinite';
+      });
+    });
+
+    // Translate to Arabic
+    const translateBtn = document.getElementById('translate-btn');
+    let isArabic = false;
+    translateBtn.addEventListener('click', () => {
+      document.querySelectorAll('[data-ar]').forEach(el => {
+        if (!isArabic) {
+          el.dataset.en = el.textContent;
+          el.textContent = el.dataset.ar;
+        } else {
+          el.textContent = el.dataset.en;
+        }
+      });
+      isArabic = !isArabic;
+      translateBtn.textContent = isArabic ? 'Translate to English' : 'Translate to Arabic';
+    });
+  </script>
+</body>
+</html>
